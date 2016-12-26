@@ -1,3 +1,4 @@
+var express = require('express');
 var gzippo = require('gzippo');
 var logger = require('morgan');
 var app = express();
