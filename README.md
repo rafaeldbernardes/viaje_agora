@@ -1,13 +1,15 @@
 # viaje-agora
 Projeto de cadastro de viagem
 
-## Instalação
+# Instalação
 Instalar dependências do projeto :
   $ npm install
   $ bower install
 
-## Testar o projeto na máquina local :
+# Testar o projeto na máquina local :
   $ grunt serve
 
-## Preparar o projeto para produção:
+# Preparar o projeto para produção:
   $ grunt build
+
+# Utilização do Node como servidor de aplicação no Heroku (web.js, Procfile)
