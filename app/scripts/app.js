@@ -14,21 +14,27 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngMessages',
+    'ui.bootstrap',
+    'ui.select2',
+    'ui.utils.masks'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        templateUrl: 'views/travel.html',
+        controller: 'TravelCtrl',
+        controllerAs: 'travel'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
+      .when('/travel_list', {
+        templateUrl: 'views/travel_list.html',
+        controller: 'TravelList',
+        controllerAs: 'travel_list'
       })
       .otherwise({
         redirectTo: '/'
       });
+
+    $locationProvider.html5Mode(true);
   });

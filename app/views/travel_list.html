@@ -1,0 +1,31 @@
+<div class="container container-no-background">
+  <div class="form-horizontal" ng-controller="TravelList as ctrl">
+    <div class="row">
+      <div class="col-md-10" ng-repeat="travel in ctrl.travels">
+        <div class="card">
+          <h4>
+            {{travel.origin}}
+            <span ng-if="travel.vehicleType === 'Avião'">
+              <i class="fa fa-plane fa-2x"></i><b> {{travel.goingDate}} - {{travel.goingTime}}</b>
+            </span>
+            <span ng-if="travel.vehicleType === 'Ônibus'">
+              <i class="fa fa-bus fa-2x"></i><b> {{travel.goingDate}} - {{travel.goingTime}}</b>
+            </span>
+          </h4>
+          <h4>
+            {{travel.destiny}}
+            <span ng-if="travel.vehicleType === 'Avião'">
+              <i class="fa fa-plane fa-rotate-180 fa-2x"></i><b> {{travel.returnDate}} - {{travel.returnTime}}</b>
+            </span>
+            <span ng-if="travel.vehicleType === 'Ônibus'">
+              <i class="fa fa-bus fa-2x"></i><b> {{travel.returnDate}} - {{travel.returnTime}}</b>
+            </span>
+          </h4>
+          <h4 ng-repeat="contact in travel.contacts">
+            <i class="fa fa-user-circle-o fa-2x"></i><b> {{contact.name}} - {{contact.email}}</b>
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

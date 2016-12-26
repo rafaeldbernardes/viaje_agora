@@ -1,10 +1,13 @@
 # viaje-agora
 Projeto de cadastro de viagem
 
-## Build & development
+## Instalação
+Instalar deṕendencias do projeto :
+  $ npm install
+  $ bower install
 
-Run `grunt` for building and `grunt serve` for preview.
+## Testar o projeto na máquina local :
+  $ grunt serve
 
-## Testing
-
-Running `grunt test` will run the unit tests with karma.
+## Preparar o projeto para produção:
+  $ grunt build

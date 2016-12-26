@@ -1,0 +1,116 @@
+<div class="container">
+  <div ng-controller="TravelCtrl as ctrl">
+    <form name="travelForm" novalidate>
+      <div>
+        <div class="form-inline">
+          <div class="row">
+            <div class="col-md-4" ng-class="{ 'has-error': travelForm.origin.$invalid }" >
+              <label for="originCity">Origem :</label>
+              <select id="originCity" name="origin" ui-select2 ng-model="ctrl.travel.origin" data-placeholder="Selecione uma cidade..." ng-required="true">
+                <option value=""></option>
+                <option ng-repeat="city in ctrl.originCities" value="{{city}}">{{city}}</option>
+              </select>
+              <div class="help-block" ng-messages="travelForm.origin.$error">
+                <p ng-message="required" class="help-block">Insira uma cidade de origem.</p>
+              </div>
+            </div>
+            <div class="col-md-4" ng-class="{ 'has-error': travelForm.destiny.$invalid }">
+              <label for="destinyCity">Destino :</label>
+              <select id="destinyCity" name="destiny" ui-select2 ng-model="ctrl.travel.destiny" data-placeholder="Selecione uma cidade..." ng-required="true">
+                <option value=""></option>
+                <option ng-repeat="city in ctrl.destinyCities" value="{{city}}">{{city}}</option>
+              </select>
+              <div class="help-block" ng-messages="travelForm.destiny.$error">
+                <p ng-message="required" class="help-block">Insira uma cidade de destino.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="form-inline">
+          <div class="row">
+            <div class="col-md-5" ng-class="{ 'has-error': travelForm.goingTime.$invalid }">
+              <label for="goingTime">Horário de partida : </label>
+              <input type="text" class="form-control" name="goingTime" ng-model="ctrl.travel.goingTime" ui-time-mask="short" placeholder="08:00" ng-required="true"/>
+              <div class="help-block" ng-messages="travelForm.goingTime.$error">
+                <p ng-message="required" class="help-block">Insira um horário de partida.</p>
+              </div>
+            </div>
+            <div class="col-md-5" ng-class="{ 'has-error': travelForm.returnTime.$invalid }">
+              <label for="returnTime">Horário de volta :</label>
+              <input type="text" class="form-control" name="returnTime" ng-model="ctrl.travel.returnTime" ui-time-mask="short" placeholder="21:00" ng-required="true"/>
+              <div class="help-block" ng-messages="travelForm.returnTime.$error">
+                <p ng-message="required" class="help-block">Insira um horário de volta.</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              <pre>Ida: <em>{{ctrl.travel.goingDate | date:'fullDate' }}</em></pre>
+              <div uib-datepicker ng-model="ctrl.travel.goingDate" class="well well-sm"></div>
+            </div>
+            <div class="col-md-5">
+              <pre>Volta: <em>{{ctrl.travel.returnDate | date:'fullDate' }}</em></pre>
+              <div uib-datepicker ng-model="ctrl.travel.returnDate" class="well well-sm"></div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="form-inline">
+          <div class="row">
+            <div class="col-md-4" ng-class="{ 'has-error': travelForm.vehicleType.$invalid }">
+              <label for="vehicle">Tipo de veículo :</label>
+              <select id="vehicle" name="vehicleType" ui-select2 ng-model="ctrl.travel.vehicleType" data-placeholder="Selecione um veículo..." ng-required="true">
+                <option value=""></option>
+                <option ng-repeat="vehicle in ctrl.vehicles" value="{{vehicle}}">{{vehicle}}</option>
+              </select>
+              <div class="help-block" ng-messages="travelForm.vehicleType.$error">
+                <p ng-message="required" class="help-block">Insira um tipo de veículo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </form>
+    <hr>
+    <form name="contactForm" novalidate>
+      <h4>Informações dos Contatos</h4>
+      <div class="form-inline">
+        <div class="row">
+          <div class="col-md-5" ng-class="{ 'has-error': contactForm.contactName.$invalid && ctrl.travel.contacts.length === 0 }">
+            <label for="contactName">Nome:</label>
+            <input type="text" id="contactName" name="contactName" class="form-control" ng-model="ctrl.contactName" placeholder="Jane Doe" ng-required="ctrl.travel.contacts.length === 0">
+            <div class="help-block" ng-messages="contactForm.contactName.$error && ctrl.travel.contacts.length === 0">
+              <p ng-message="required" class="help-block">Insira um nome.</p>
+            </div>
+          </div>
+          <div class="col-md-5" ng-class="{ 'has-error': contactForm.contactEmail.$invalid && ctrl.travel.contacts.length === 0 }">
+            <i class="fa fa-envelope-o fa-fw"></i>
+            <input type="text" id="contactEmail" name="contactEmail" class="form-control" ng-model="ctrl.contactEmail" placeholder="Jjoe@burguer.com" ng-required="ctrl.travel.contacts.length === 0">
+            <div class="help-block" ng-messages="contactForm.contactEmail.$error && ctrl.travel.contacts.length === 0">
+              <p ng-message="required" class="help-block">Insira um email.</p>
+            </div>
+          </div>
+          <button type="btn" class="btn btn-primary" ng-disabled="contactForm.contactName.$invalid || contactForm.contactEmail.$invalid" ng-click="ctrl.addContact()">Adicionar Viajante</button>
+        </div>
+      </div>
+      <hr>
+      <div class="form-horizontal">
+        <div class="row">
+          <div class="col-md-5" ng-repeat="contact in ctrl.travel.contacts">
+            <div class="card">
+              <a ng-click="ctrl.removeContact($index)" class="boxclose" id="boxclose"></a>
+              <h3><b>{{contact.name}}</b></h3>
+              <p>{{contact.email}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <hr>
+    <div class="form-horizontal">
+      <div class="row text-center">
+        <button type="btn" class="btn btn-primary" ng-disabled="!travelForm.$valid || !ctrl.travel.contacts.length" ng-click="ctrl.save(ctrl.travel)"><i class="fa fa-floppy-o fa-lg"></i>&nbsp;Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
