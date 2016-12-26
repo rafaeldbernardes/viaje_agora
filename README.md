@@ -2,7 +2,7 @@
 Projeto de cadastro de viagem
 
 ## Instalação
-Instalar deṕendencias do projeto :
+Instalar dependências do projeto :
   $ npm install
   $ bower install
 
